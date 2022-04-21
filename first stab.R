@@ -11,23 +11,10 @@ c <- pdf_ocr_text("https://www.asx.com.au/data/trt/ib_expectation_curve_graph.pd
 datebase <- unlist(c %>% 
          str_split("\n")) %>% 
   as_tibble() %>% 
-  mutate(id = row_number()) %>% 
   mutate(date = if_else(str_detect(value, "at market close on"), value, NA_character_)) %>% 
   mutate(date = str_remove(date, "ASX As at market close on ")) %>% 
   mutate(date = str_remove_all(date, "[\"))]")) %>% 
-  mutate(values = str_detect(value, "Yield")) %>% 
-  fill(date,.direction = "down") %>% 
-  filter(id>5) %>%  
-  filter(values == "TRUE") %>% 
-  mutate(value = str_remove_all(value, "[impliedyield|''Y()‘]")) %>% 
-  mutate(value = str_replace_all(value, "   ", " ")) %>% 
-  mutate(value = str_replace_all(value, "  ", " ")) %>% 
-  mutate(value = str_split(value, " ")) %>% 
-  unnest(value) %>% 
-  mutate(value = as.numeric(value))%>% 
-  filter(!is.na(value)) %>% 
-  select(date, value) %>% 
-  mutate(id = row_number()-1) %>% 
+  fill(date,.direction = "down") %>%
   mutate(date = as.Date(date, format("%d %B %Y"))) %>% 
   select(date) %>% 
   unique() %>% 
