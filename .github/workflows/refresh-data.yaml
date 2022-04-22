@@ -34,7 +34,7 @@ jobs:
         run: Rscript -e 'install.packages(c("tidyverse", "tesseract", "pdftools", "here"), type = "binary")'
 
       - name: Get data
-        run: Rscript -e 'source(here::here("R", "first_stab.R"), echo = TRUE)'
+        run: Rscript -e 'source("first_stab.R"), echo = TRUE)'
 
       - name: Commit
         run: |
