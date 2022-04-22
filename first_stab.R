@@ -10,7 +10,6 @@ d <- pdf_ocr_text("https://www.asx.com.au/data/trt/ib_expectation_curve_graph.pd
 datebase <- unlist(d %>% 
          str_split("\n")) %>% 
   as_tibble() %>% 
-  mutate(id = row_number()) %>% 
   mutate(date = if_else(str_detect(value, "at market close on"), value, NA_character_)) %>% 
   mutate(date = str_remove(date, "ASX As at market close on ")) %>% 
   mutate(date = str_remove_all(date, "[°\"\\))]")) %>% 
@@ -44,11 +43,8 @@ mutate(date = str_remove(date, "ASX As at market close on ")) %>%  #this line do
       mutate(value = as.numeric(value))%>% 
     filter(!is.na(value)) %>% 
     select(date, value) %>% 
-    mutate(id = row_number()-1) %>% 
     mutate(date = as.Date(date, format("%d %B %Y"))) %>% 
-    mutate(predictiondate = seq(as.Date(datebase), by = "month", length = 18)) %>% 
-    mutate(predictiondate= format(predictiondate, "%b-%y")) %>% 
-    select(-id) %>% 
+    mutate(predictiondate = as.Date(datebase)) %>% 
     mutate(scrapedate =  Sys.time())
     
     
