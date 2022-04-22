@@ -44,7 +44,7 @@ mutate(date = str_remove(date, "ASX As at market close on ")) %>%  #this line do
     filter(!is.na(value)) %>% 
     select(date, value) %>% 
     mutate(date = as.Date(date, format("%d %B %Y"))) %>% 
-    mutate(predictiondate = seq(as.Date(datebase), by = "month", length = 18)) %>% 
+    #mutate(predictiondate = seq(as.Date(datebase), by = "month", length = 18)) %>% 
     mutate(scrapedate =  Sys.time())
     
     
