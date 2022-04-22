@@ -31,21 +31,21 @@ mutate(date = str_remove(date, "ASX As at market close on ")) %>%  #this line do
   mutate(date = str_remove_all(date, "[°\"\\))]")) %>% 
   mutate(values = str_detect(value, "ield")) %>% 
   fill(date,.direction = "down") %>% 
-    filter(id>5) %>%  
+    filter(id>5) #%>%  
     
-  filter(values == "TRUE") %>% 
-  mutate(value = str_remove_all(value, "[a-zA-Z|''VvY(°)‘\\]]")) %>% 
-    mutate(value = str_replace_all(value, "   ", " ")) %>% 
-  mutate(value = str_replace_all(value, "  ", " ")) %>% 
-    mutate(value = str_split(value, " ")) %>% 
+#  filter(values == "TRUE") %>% 
+ # mutate(value = str_remove_all(value, "[a-zA-Z|''VvY(°)‘\\]]")) %>% 
+  #  mutate(value = str_replace_all(value, "   ", " ")) %>% 
+  #mutate(value = str_replace_all(value, "  ", " ")) %>% 
+  #  mutate(value = str_split(value, " ")) %>% 
    
-    unnest(value) %>% 
-      mutate(value = as.numeric(value))%>% 
-    filter(!is.na(value)) %>% 
-    select(date, value) %>% 
-    mutate(date = as.Date(date, format("%d %B %Y"))) %>% 
+   # unnest(value) %>% 
+    #  mutate(value = as.numeric(value))%>% 
+    #filter(!is.na(value)) %>% 
+    #select(date, value) %>% 
+    #mutate(date = as.Date(date, format("%d %B %Y"))) %>% 
     #mutate(predictiondate = seq(as.Date(datebase), by = "month", length = 18)) %>% 
-    mutate(scrapedate =  Sys.time())
+    #mutate(scrapedate =  Sys.time())
     
     
     
