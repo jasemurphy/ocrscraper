@@ -1,5 +1,5 @@
 # Workflow derived from https://github.com/r-lib/actions/tree/master/examples 
-#   code based on work by @mattcowgill
+#    code based on work by @mattcowgill
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   schedule:
