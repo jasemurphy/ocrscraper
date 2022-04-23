@@ -28,13 +28,13 @@ mutate(l=as.numeric(l)) %>%
 
   mutate(start = str_detect(word, "ield")) %>% 
     fill(start, .direction = "down") %>% 
-  filter(t>14000) %>% 
-mutate(junk =   str_detect(word, "[A-Za-z|]")) %>% 
-         filter(junk == FALSE) %>% 
-  mutate(value= as.numeric(word)) %>% 
-  mutate(predictiondate = seq(as.Date(datebase2), by = "month", length = 18)) %>% 
+#  filter(t>14000) %>% 
+#mutate(junk =   str_detect(word, "[A-Za-z|]")) %>% 
+ #        filter(junk == FALSE) %>% 
+ # mutate(value= as.numeric(word)) %>% 
+ # mutate(predictiondate = seq(as.Date(datebase2), by = "month", length = 18)) %>% 
   mutate(scrapedate =  Sys.time()) %>% 
-select(value, predictiondate, scrapedate) %>% 
+#select(value, predictiondate, scrapedate) %>% 
 mutate(date = as.Date(datebase2))
 
 
