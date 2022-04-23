@@ -36,3 +36,20 @@ mutate(junk =   str_detect(word, "[A-Za-z|]")) %>%
   mutate(scrapedate =  Sys.time()) %>% 
 select(value, predictiondate, scrapedate) %>% 
 mutate(date = as.Date(datebase2))
+
+
+    
+# Write a CSV of today's data
+write_csv(OCR_latest_predictions, file.path("daily_data",
+                              paste0("scraped_cash_rate_", Sys.Date(), ".csv")))
+
+# Load all existing data, combine with latest data
+all_data <- file.path("daily_data") |>
+  list.files(pattern = ".csv",
+             full.names = TRUE) |>
+  read_csv(col_types = "DdD")
+
+saveRDS(all_data,
+        file = file.path("combined_data",
+                         "all_data.Rds"))
+
