@@ -1,3 +1,12 @@
+
+library(stringr)
+library(tidyr)
+library(dplyr)
+library(pdftools)
+library(tesseract)
+
+
+
 e <- pdf_ocr_data("https://www.asx.com.au/data/trt/ib_expectation_curve_graph.pdf", dpi = 2200)
 
 datebase2 <- format(Sys.time(), "%Y-%m-%d")%>% 
