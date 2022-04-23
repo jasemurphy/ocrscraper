@@ -31,7 +31,7 @@ jobs:
         run: brew install xquartz --cask
 
       - name: Install packages
-        run: Rscript -e 'install.packages(c("stringr", "tidyr", "dplyr", "tesseract", "pdftools"), type = "binary")'
+        run: Rscript -e 'install.packages(c("stringr", "tidyr", "dplyr", "tesseract", "pdftools"))'
 
       - name: Get data
         run: Rscript -e 'source("second_attempt.R", echo = TRUE)'
