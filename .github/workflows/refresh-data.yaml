@@ -1,6 +1,7 @@
 on:
-schedule:
+  schedule:
     - cron:  '20 10 * * *'
+
 
   push:
     branches: [main, master]
