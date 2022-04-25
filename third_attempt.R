@@ -1,5 +1,9 @@
 # Scrape ASX 30 Day Interbank Cash Rate Futures Implied Yield Target from PDF
-library(tidyverse)
+
+library(dplyr) 
+library(tidyr)
+library(stringr)
+library(readr)
 library(tesseract)
 library(magick)
 
