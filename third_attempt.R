@@ -3,7 +3,7 @@
 library(dplyr) 
 library(tidyr)
 library(purrr)
-package(lubridate)
+library(lubridate)
 library(stringr)
 library(readr)
 library(tesseract)
