@@ -23,9 +23,9 @@ full_image <- image_read_pdf(pdf_path)
 
 table_image <- full_image |>
   magick::image_crop(geometry = geometry_area(width = 870 * 3.1,
-                                              height = 38 * 3.1,
+                                              height = 68 * 3.1,
                                               x_off = 168 * 3.1,
-                                              y_off = 650 * 3.1)) |>
+                                              y_off = 620 * 3.1)) |>
   image_quantize(colorspace = "gray") |>
   image_transparent(color = "white", fuzz = 48)
 
@@ -37,15 +37,24 @@ strings <- table_image |>
 
 strings <- strings[strings != ""]
 
+
+
+
 string_list <- map(strings, ~(str_split(.x, " ")[[1]]))
 
+string_list[[2]] <- string_list[[2]][string_list[[2]] != "d"]
+
+library(lubridate)
 # Create a tibble with our newly-scraped data
 new_data <- tibble(date = string_list[[1]],
-       cash_rate = string_list[[2]],
-       scrape_date = Sys.Date()) |>
-  mutate(date = lubridate::my(date))
+                    values = string_list[[2]],
+                   scrape_date = Sys.Date()) |>
+  mutate(date = lubridate::my(date)) %>% 
+  mutate(date = if_else(is.na(date), lag(date) %m+% months (1), date))
 
-# The decimal point is not always picked up; add it in
+
+
+  # The decimal point is not always picked up; add it in
 # Note we are assuming all future cash rates are <10%
 
 new_data <- new_data |>
