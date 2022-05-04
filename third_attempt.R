@@ -47,7 +47,7 @@ string_list[[2]] <- string_list[[2]][string_list[[2]] != "d"]
 library(lubridate)
 # Create a tibble with our newly-scraped data
 new_data <- tibble(date = string_list[[1]],
-                    values = string_list[[2]],
+                    cash_rate = string_list[[2]],
                            scrape_date = Sys.Date()) %>%
   mutate(date = str_replace(date, "Deo", "Dec")) %>% 
   mutate(date = lubridate::my(date)) %>% 
