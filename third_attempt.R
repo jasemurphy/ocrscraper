@@ -48,7 +48,8 @@ library(lubridate)
 # Create a tibble with our newly-scraped data
 new_data <- tibble(date = string_list[[1]],
                     values = string_list[[2]],
-                   scrape_date = Sys.Date()) |>
+                           scrape_date = Sys.Date()) %>%
+  mutate(date = str_replace(date, "Deo", "Dec")) %>% 
   mutate(date = lubridate::my(date)) %>% 
   mutate(date = if_else(is.na(date), lag(date) %m+% months (1), date))
 
