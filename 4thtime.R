@@ -2,8 +2,7 @@ library(rvest)
 library(tidyverse)
 
 
-today <-Sys.Date() %>% 
-  format("%y%m%d")
+today <- format(Sys.Date()-1,"%y%m%d")
 
 url <- paste0("https://www2.asx.com.au/data/data/markets/futures/reports/EODWebMarketSummary",today, "SFT.htm")
 
