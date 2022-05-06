@@ -33,6 +33,6 @@ select(X1, X6) %>%
   filter(check == 1) %>% 
   mutate(cash_rate = as.numeric(X6)) %>% 
   mutate(cash_rate = 100- cash_rate) %>% 
-  mutate(prediction_date = lubridate::my(X1)) %>% 
+  mutate(date = lubridate::my(X1)) %>% 
   select(-check, -X1,-X6) %>% 
   mutate(scrape_date = Sys.Date())
