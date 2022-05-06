@@ -28,16 +28,16 @@ jobs:
         run: brew install xquartz --cask
 
       - name: Install packages
-        run: Rscript -e 'install.packages(c("dplyr", "purrr", "tidyr","lubridate", "stringr", "readr", "tesseract", "magick"))'
+        run: Rscript -e 'install.packages(c("rvest", "tidyverse"))'
 
       - name: Get data
-        run: Rscript -e 'source("third_attempt.R", echo = TRUE)'
+        run: Rscript -e 'source("4thtime.R", echo = TRUE)'
 
 
       - name: Commit
         run: |
-          git config --global user.name 'Matt Cowgill'
-          git config --global user.email 'mattcowgill@github.com'
+          git config --global user.name 'Jason Murphy'
+          git config --global user.email 'jasemurphy@gmail.com'
           git add .
           git commit -m 'refreshing data' || echo "No changes to commit"
           git push || echo "No changes to commit"    
