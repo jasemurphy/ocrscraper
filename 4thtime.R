@@ -18,7 +18,7 @@ IBFtib <- IBFtablelist[2] %>%
  tibble() %>% 
   unnest(cols = c(.)) 
 
-IBFtib %>% 
+new_data <- IBFtib %>% 
   mutate(check = if_else(str_detect(X1, "0 Day Interbank Cash Rate") == TRUE, "1",NA_character_), 
          end = if_else(str_detect(X1, "90-Day Bank Bills") == TRUE, "1",NA_character_)) %>%
   fill(check, .direction = "down") %>% 
@@ -35,3 +35,18 @@ select(X1, X6) %>%
   mutate(date = lubridate::my(X1)) %>% 
   select(-check, -X1,-X6) %>% 
   mutate(scrape_date = Sys.Date())
+
+
+# Write a CSV of today's data
+write_csv(new_data, file.path("daily_data",
+                              paste0("scraped_cash_rate_", Sys.Date(), ".csv")))
+
+# Load all existing data, combine with latest data
+all_data <- file.path("daily_data") |>
+  list.files(pattern = ".csv",
+             full.names = TRUE) |>
+  read_csv(col_types = "DdD")
+
+saveRDS(all_data,
+        file = file.path("combined_data",
+                         "all_data.Rds"))
