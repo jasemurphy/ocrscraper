@@ -34,7 +34,8 @@ select(X1, X6) %>%
   mutate(cash_rate = 100- cash_rate) %>% 
   mutate(date = lubridate::my(X1)) %>% 
   select(-check, -X1,-X6) %>% 
-  mutate(scrape_date = Sys.Date())
+  mutate(scrape_date = Sys.Date())%>%
+select(date, everything())
 
 
 # Write a CSV of today's data
