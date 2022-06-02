@@ -16,7 +16,8 @@ IBFtablelist <- IBF %>%
 
 IBFtib <- IBFtablelist[2] %>% 
  tibble() %>% 
-  unnest(cols = c(.)) 
+  unnest(cols = c(.)) %>%
+ mutate(scrape_date = Sys.Date())
 
 new_data <- IBFtib %>% 
   mutate(check = if_else(str_detect(X1, "0 Day Interbank Cash Rate") == TRUE, "1",NA_character_), 
@@ -34,15 +35,19 @@ select(X1, X6) %>%
   mutate(cash_rate = 100- cash_rate) %>% 
   mutate(date = lubridate::my(X1)) %>% 
   select(-check, -X1,-X6) %>% 
-  mutate(scrape_date = Sys.Date())%>%
+ mutate(scrape_date = Sys.Date())%>%
 select(date, everything())
 
 
-# Write a CSV of today's data
+# Write a CSV of today's rates data
 write_csv(new_data, file.path("daily_data",
                               paste0("scraped_cash_rate_", Sys.Date(), ".csv")))
 
-# Load all existing data, combine with latest data
+#write csv of all futures data
+write_csv(IBFtib, file.path("daily_futures_data",
+                              paste0("All_futures", Sys.Date(), ".csv")))
+
+# Load all existing rates data, combine with latest data
 all_data <- file.path("daily_data") |>
   list.files(pattern = ".csv",
              full.names = TRUE) |>
